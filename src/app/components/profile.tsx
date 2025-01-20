@@ -64,7 +64,7 @@ function ProfileContent() {
     fetch('/api/profile')
       .then(res => res.json())
       .then(data => {
-        console.log('Fetched data:', data);  // 데이터 구조 확인용
+        console.log('Fetched data:', data);
         setProfile(data);
         setLoading(false);
       })
@@ -105,7 +105,7 @@ function ProfileContent() {
         >
           <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Skills</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {profile.skills.map((skill, index) => (
+            {profile.skills.map((skill) => (
               <div key={skill.id} className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
                 <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-white">
                   {skill.category}

@@ -1,6 +1,6 @@
 'use client';
 
-import Profile from './components/Profile';
+import Profile from '@/app/components/profile';
 import { motion } from 'framer-motion';
 import { Github, Mail, Linkedin } from 'lucide-react';
 
