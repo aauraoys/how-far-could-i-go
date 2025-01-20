@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Profile {
+  id           String        @id @default(cuid())
+  name         String
+  email        String
+  phone        String
+  companies    Company[]
+  education    Education[]
+  skills       Skill[]
+  certificates Certificate[]
+}
+
+model Company {
+  id          String    @id @default(cuid())
+  name        String
+  websiteUrl  String?
+  startDate   DateTime
+  endDate     DateTime?
+  description String?
+  position    String
+  profile     Profile   @relation(fields: [profileId], references: [id])
+  profileId   String
+  projects    Project[]
+}
+
+model Project {
+  id           String    @id @default(cuid())
+  title        String
+  description  String
+  details      String? // 자세한 설명
+  bulletPoints String[] // 글머리 기호로 표시될 내용들
+  techStack    String[]
+  startDate    DateTime
+  endDate      DateTime?
+  company      Company   @relation(fields: [companyId], references: [id])
+  companyId    String
+  websiteUrl   String?
+}
+
+model Education {
+  id        String   @id @default(cuid())
+  title     String
+  institute String
+  date      DateTime
+  profile   Profile  @relation(fields: [profileId], references: [id])
+  profileId String
+}
+
+model Skill {
+  id        String   @id @default(cuid())
+  category  String // e.g., "Front-End", "Database", "OS", "Tools"
+  items     String[] // e.g., ["javascript", "react.js"]
+  profile   Profile  @relation(fields: [profileId], references: [id])
+  profileId String
+}
+
+model Certificate {
+  id        String  @id @default(cuid())
+  name      String
+  profile   Profile @relation(fields: [profileId], references: [id])
+  profileId String
+}
